@@ -1,6 +1,6 @@
 package net.mpv.jpress.model;
 
-public class UserMedata extends Metadata 
+public class UserMetaData extends Metadata 
 {
 	private long users_id;
 

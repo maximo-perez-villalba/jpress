@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import net.mpv.jpress.mapper.GroupMapper;
 import net.mpv.jpress.model.Group;
 
 @Repository
@@ -12,10 +13,22 @@ public class GroupRepository extends DBRepository<Group>
 {
 
 	@Override
+	public Group getById(long id) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM groups WHERE id = ?;",
+				new GroupMapper(),
+				new Object[]{id}
+			);
+	}
+
+	@Override
 	public List<Group> getAll(Pageable pageable) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.jdbcTemplate.query(
+				"SELECT * FROM groups;", 
+				new GroupMapper()
+			);
 	}
 
 	@Override

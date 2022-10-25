@@ -5,21 +5,34 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import net.mpv.jpress.model.UserMedata;
+import net.mpv.jpress.mapper.UserMedataMapper;
+import net.mpv.jpress.model.UserMetaData;
 
 @Repository
-public class UserMedataRepository extends DBRepository<UserMedata> 
+public class UserMedataRepository extends DBRepository<UserMetaData> 
 {
 
 	@Override
-	public List<UserMedata> getAll(Pageable pageable) 
+	public UserMetaData getById(long id) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM users_metadata WHERE id = ?;",
+				new UserMedataMapper(),
+				new Object[]{id}
+			);
 	}
 
 	@Override
-	protected String queryInsert(UserMedata metadata) 
+	public List<UserMetaData> getAll(Pageable pageable) 
+	{
+		return this.jdbcTemplate.query(
+				"SELECT * FROM users_metadata;", 
+				new UserMedataMapper()
+			);
+	}
+
+	@Override
+	protected String queryInsert(UserMetaData metadata) 
 	{
 		return String.format(
 				"INSERT INTO users_metadata (key,value,users_id) VALUES ('%s','%s','%d');",
@@ -30,7 +43,7 @@ public class UserMedataRepository extends DBRepository<UserMedata>
 	}
 
 	@Override
-	protected String queryUpdate(UserMedata metadata) 
+	protected String queryUpdate(UserMetaData metadata) 
 	{
 		return String.format(
 				"UPDATE users_metadata SET value='%s' WHERE id='%d';",
@@ -40,7 +53,7 @@ public class UserMedataRepository extends DBRepository<UserMedata>
 	}
 
 	@Override
-	protected String queryDelete(UserMedata metadata) 
+	protected String queryDelete(UserMetaData metadata) 
 	{
 		return String.format("DELETE FROM users_metadata WHERE id='%d';",metadata.getId());
 	}

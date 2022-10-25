@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import net.mpv.jpress.mapper.PostMapper;
 import net.mpv.jpress.model.Post;
 
 @Repository
@@ -12,10 +13,22 @@ public class PostRepository extends DBRepository<Post>
 {
 
 	@Override
+	public Post getById(long id) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM posts WHERE id = ?;",
+				new PostMapper(),
+				new Object[]{id}
+			);
+	}
+
+	@Override
 	public List<Post> getAll(Pageable pageable) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.jdbcTemplate.query(
+				"SELECT * FROM posts;", 
+				new PostMapper()
+			);
 	}
 
 	@Override

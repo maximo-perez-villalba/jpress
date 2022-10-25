@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import net.mpv.jpress.mapper.PostMetaDataMapper;
 import net.mpv.jpress.model.PostMetaData;
 
 @Repository
@@ -12,10 +13,22 @@ public class PostMetaDataRepository extends DBRepository<PostMetaData>
 {
 
 	@Override
+	public PostMetaData getById(long id) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM posts_metadata WHERE id = ?;",
+				new PostMetaDataMapper(),
+				new Object[]{id}
+			);
+	}
+
+	@Override
 	public List<PostMetaData> getAll(Pageable pageable) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.jdbcTemplate.query(
+				"SELECT * FROM posts_metadata;", 
+				new PostMetaDataMapper()
+			);
 	}
 
 	@Override

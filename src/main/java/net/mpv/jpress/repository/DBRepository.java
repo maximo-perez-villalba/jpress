@@ -54,6 +54,8 @@ public abstract class DBRepository<T>
 	
 	abstract public List<T> getAll(Pageable pageable);
 	
+	abstract public T getById(long id);
+	
 	public boolean save(T t) 
 	{
 		boolean response = false;

@@ -2,7 +2,10 @@ package net.mpv.jpress.repository;
 
 import java.awt.print.Pageable;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import net.mpv.jpress.mapper.UserMapper;
 import net.mpv.jpress.model.User;
 
 @Repository
@@ -10,10 +13,22 @@ public class UserRepository extends DBRepository<User>
 {
 
 	@Override
+	public User getById(long id) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM users WHERE id = ?;",
+				new UserMapper(),
+				new Object[]{id}
+			);
+	}
+
+	@Override
 	public List<User> getAll(Pageable pageable) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.jdbcTemplate.query(
+				"SELECT * FROM users;", 
+				new UserMapper()
+			);
 	}
 
 	@Override

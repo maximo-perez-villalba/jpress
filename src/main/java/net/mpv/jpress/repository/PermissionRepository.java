@@ -2,7 +2,10 @@ package net.mpv.jpress.repository;
 
 import java.awt.print.Pageable;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
+import net.mpv.jpress.mapper.PermissionMapper;
 import net.mpv.jpress.model.Permission;
 
 @Repository
@@ -10,10 +13,22 @@ public class PermissionRepository extends  DBRepository<Permission>
 {
 
 	@Override
+	public Permission getById(long id) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM permissions WHERE id = ?;",
+				new PermissionMapper(),
+				new Object[]{id}
+			);
+	}
+
+	@Override
 	public List<Permission> getAll(Pageable pageable) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.jdbcTemplate.query(
+				"SELECT * FROM permissions;", 
+				new PermissionMapper()
+			);
 	}
 
 	@Override

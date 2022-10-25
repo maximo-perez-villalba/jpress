@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Comment extends DBModel 
 {
-	private String comment;
+	private String body;
 	
 	private Date created;
 	
@@ -12,14 +12,14 @@ public class Comment extends DBModel
 	
 	private long user_id;
 
-	public String getComment() 
+	public String getBody() 
 	{
-		return comment;
+		return body;
 	}
 
-	public void setComment(String comment) 
+	public void setBody(String body) 
 	{
-		this.comment = comment;
+		this.body = body;
 	}
 
 	public Date getCreated() 
@@ -51,6 +51,5 @@ public class Comment extends DBModel
 	{
 		this.user_id = user_id;
 	}
-	
-	
+
 }
