@@ -8,6 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.mpv.jpress.repository.CategoryRepository;
 import net.mpv.jpress.repository.GroupRepository;
+import net.mpv.jpress.repository.UserRepository;
 
 @Configuration
 public class TestDatabaseConfiguration 
@@ -33,5 +34,11 @@ public class TestDatabaseConfiguration
 	public GroupRepository getGroupRepository() 
 	{
 		return new GroupRepository();
+	} 
+	
+	@Bean
+	public UserRepository getUserRepository() 
+	{
+		return new UserRepository();
 	} 
 }

@@ -15,9 +15,18 @@ public class UserRepository extends DBRepository<User>
 	public User getById(long id) 
 	{
 		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM users WHERE id = ?;",
+				"SELECT * FROM `users` WHERE id = ?;",
 				new UserMapper(),
 				new Object[]{id}
+			);
+	}
+
+	public User getByEmail(String email) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM `users` WHERE email = ?;",
+				new UserMapper(),
+				new Object[]{email}
 			);
 	}
 
@@ -25,7 +34,7 @@ public class UserRepository extends DBRepository<User>
 	public List<User> getAll() 
 	{
 		return this.jdbcTemplate.query(
-				"SELECT * FROM users;", 
+				"SELECT * FROM `users`;", 
 				new UserMapper()
 			);
 	}
@@ -34,7 +43,7 @@ public class UserRepository extends DBRepository<User>
 	protected String queryInsert(User user) 
 	{
 		return String.format(
-				"INSERT INTO users (firstname,lastname,email,password,group_id)"
+				"INSERT INTO `users` (firstname,lastname,email,password,group_id)"
 				+ " VALUES ('%s','%s','%s','%s','%d');",
 				user.getFirstname(),
 				user.getLastname(),
@@ -48,8 +57,8 @@ public class UserRepository extends DBRepository<User>
 	protected String queryUpdate(User user) 
 	{
 		return String.format(
-				"UPDATE users SET firstname='%s',lastname='%s',email='%s',"
-				+ "password='%s',group_id='%d' WHERE id='%d';",
+				"UPDATE `users` SET firstname='%s',lastname='%s',email='%s',"
+				+ "`password`='%s',group_id='%d' WHERE id='%d';",
 				user.getFirstname(),
 				user.getLastname(),
 				user.getEmail(),
@@ -62,13 +71,13 @@ public class UserRepository extends DBRepository<User>
 	@Override
 	protected String queryDelete(User user) 
 	{
-		return String.format("DELETE FROM users WHERE id='%d';", user.getId());
+		return String.format("DELETE FROM `users` WHERE id='%d';", user.getId());
 	}
 
 	@Override
 	protected String queryClean() 
 	{
-		return String.format("DELETE FROM users;");
+		return String.format("DELETE FROM `users`;");
 	}
 	
 }
