@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.mpv.jpress.repository.CategoryRepository;
+import net.mpv.jpress.repository.GroupRepository;
 
 @Configuration
 public class TestDatabaseConfiguration 
@@ -27,4 +28,10 @@ public class TestDatabaseConfiguration
 	{
 		return new CategoryRepository(); 
 	}
+	
+	@Bean
+	public GroupRepository getGroupRepository() 
+	{
+		return new GroupRepository();
+	} 
 }

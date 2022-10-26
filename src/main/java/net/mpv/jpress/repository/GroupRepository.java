@@ -15,9 +15,18 @@ public class GroupRepository extends DBRepository<Group>
 	public Group getById(long id) 
 	{
 		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM groups WHERE id = ?;",
+				"SELECT * FROM `groups` WHERE id = ?;",
 				new GroupMapper(),
 				new Object[]{id}
+			);
+	}
+
+	public Group getByName(String name) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM `groups` WHERE name = ?;",
+				new GroupMapper(),
+				new Object[]{name}
 			);
 	}
 
@@ -25,7 +34,7 @@ public class GroupRepository extends DBRepository<Group>
 	public List<Group> getAll() 
 	{
 		return this.jdbcTemplate.query(
-				"SELECT * FROM groups;", 
+				"SELECT * FROM `groups`;", 
 				new GroupMapper()
 			);
 	}
@@ -34,7 +43,7 @@ public class GroupRepository extends DBRepository<Group>
 	protected String queryInsert(Group group) 
 	{
 		return String.format(
-				"INSERT INTO groups (name) VALUES ('%s');",
+				"INSERT INTO `groups` (name) VALUES ('%s')",
 				group.getName()
 			);
 	}
@@ -43,7 +52,7 @@ public class GroupRepository extends DBRepository<Group>
 	protected String queryUpdate(Group group) 
 	{
 		return String.format(
-				"UPDATE groups SET name='%s' WHERE id='%d';",
+				"UPDATE `groups` SET name='%s' WHERE id='%d';",
 				group.getName(),
 				group.getId()
 			);
@@ -52,13 +61,13 @@ public class GroupRepository extends DBRepository<Group>
 	@Override
 	protected String queryDelete(Group group) 
 	{
-		return String.format("DELETE FROM groups WHERE id='%d';", group.getId());
+		return String.format("DELETE FROM `groups` WHERE id='%d';", group.getId());
 	}
 
 	@Override
 	protected String queryClean() 
 	{
-		return String.format("DELETE FROM groups;");
+		return String.format("DELETE FROM `groups`;");
 	}
 
 }

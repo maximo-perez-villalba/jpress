@@ -52,6 +52,7 @@ public abstract class DBRepository<T>
 		catch(Exception exception)
 		{
 			this.setLastException(exception);
+			System.out.println(exception.getMessage());
 		}
 		return response;
 	}

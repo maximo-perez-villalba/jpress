@@ -3,6 +3,7 @@ package net.mpv.jpress.repository;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,16 @@ class CategoryRepositoryTest
 
 	@Autowired
 	private CategoryRepository repository;
+	
+	@AfterEach
+	protected void tearDown() throws Exception
+	{
+		this.repository.clean();
+	}
 
 	@Test
 	void testFindById() 
 	{
-		this.repository.clean();
-		
 		Category category = new Category();
 		category.setName("TopXYZ");
 		category.setDescription("Superior category");
@@ -45,14 +50,11 @@ class CategoryRepositoryTest
 		{
 			Assert.assertTrue(false);
 		}
-		this.repository.clean();
 	}
 
 	@Test
 	void testFindByName() 
 	{
-		this.repository.clean();
-		
 		Category category = new Category();
 		category.setName("Top");
 		category.setDescription("Superior category");
@@ -68,14 +70,11 @@ class CategoryRepositoryTest
 		{
 			Assert.assertTrue(false);
 		}
-		this.repository.clean();
 	}
 
 	@Test
 	void testGetAll() 
 	{
-		this.repository.clean();
-		
 		Category category = new Category();
 		category.setName("Top 1");
 		category.setDescription("Category 1");
@@ -110,14 +109,11 @@ class CategoryRepositoryTest
 		{
 			Assert.assertTrue(false);
 		}
-		this.repository.clean();
 	}
 
 	@Test
 	void testSave() 
 	{
-		this.repository.clean();
-		
 		Category category = new Category();
 		category.setName("Top");
 		category.setDescription("Superior category");
@@ -125,14 +121,11 @@ class CategoryRepositoryTest
 		
 		boolean response = this.repository.save(category);
 		Assert.assertTrue(response);
-		this.repository.clean();
 	}
 
 	@Test
 	void testUpdate() 
 	{
-		this.repository.clean();
-		
 		Category category = new Category();
 		category.setName("Top");
 		category.setDescription("Superior category");
@@ -156,14 +149,11 @@ class CategoryRepositoryTest
 		{
 			Assert.assertTrue(false);
 		}
-		this.repository.clean();
 	}
 
 	@Test
 	void testDelete() 
 	{
-		this.repository.clean();
-		
 		Category category = new Category();
 		category.setName("Top to Delete");
 		category.setDescription("Superior category");

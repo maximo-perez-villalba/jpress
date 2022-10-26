@@ -2,7 +2,7 @@ package net.mpv.jpress.model;
 
 public abstract class DBModel 
 {
-	private long id;
+	private long id = 0;
 
 	public long getId() 
 	{
