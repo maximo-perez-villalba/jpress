@@ -1,14 +1,11 @@
 package net.mpv.jpress.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
 
 import net.mpv.jpress.mapper.CategoryMapper;
 import net.mpv.jpress.model.Category;
 
-@Repository
+//@Repository
 public class CategoryRepository extends DBRepository<Category>
 {
 
@@ -22,8 +19,17 @@ public class CategoryRepository extends DBRepository<Category>
 			);
 	}
 
+	public Category getByName(String name) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM categories WHERE name = ?;",
+				new CategoryMapper(),
+				new Object[]{name}
+			);
+	}
+
 	@Override
-	public List<Category> getAll(Pageable pageable) 
+	public List<Category> getAll() 
 	{
 		return this.jdbcTemplate.query(
 				"SELECT * FROM categories;", 
@@ -56,6 +62,12 @@ public class CategoryRepository extends DBRepository<Category>
 	protected String queryDelete(Category category) 
 	{
 		return String.format("DELETE FROM categories WHERE id='%d';", category.getId());
+	}
+
+	@Override
+	protected String queryClean() 
+	{
+		return String.format("DELETE FROM categories;");	
 	}
 
 }

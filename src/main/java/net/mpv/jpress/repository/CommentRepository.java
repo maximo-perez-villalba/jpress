@@ -1,14 +1,10 @@
 package net.mpv.jpress.repository;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import net.mpv.jpress.mapper.CategoryMapper;
 import net.mpv.jpress.mapper.CommentMapper;
-import net.mpv.jpress.model.Category;
 import net.mpv.jpress.model.Comment;
 
 @Repository
@@ -26,7 +22,7 @@ public class CommentRepository extends DBRepository<Comment>
 	}
 
 	@Override
-	public List<Comment> getAll(Pageable pageable) 
+	public List<Comment> getAll() 
 	{
 		return this.jdbcTemplate.query(
 				"SELECT * FROM comments;", 
@@ -59,6 +55,12 @@ public class CommentRepository extends DBRepository<Comment>
 	protected String queryDelete(Comment comment) 
 	{
 		return String.format("DELETE FROM comments WHERE id='%d';", comment.getId());
+	}
+
+	@Override
+	protected String queryClean() 
+	{
+		return String.format("DELETE FROM comments;");	
 	}
 
 }

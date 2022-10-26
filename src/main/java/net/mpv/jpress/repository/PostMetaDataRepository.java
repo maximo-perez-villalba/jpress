@@ -1,6 +1,5 @@
 package net.mpv.jpress.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,7 @@ public class PostMetaDataRepository extends DBRepository<PostMetaData>
 	}
 
 	@Override
-	public List<PostMetaData> getAll(Pageable pageable) 
+	public List<PostMetaData> getAll() 
 	{
 		return this.jdbcTemplate.query(
 				"SELECT * FROM posts_metadata;", 
@@ -56,5 +55,11 @@ public class PostMetaDataRepository extends DBRepository<PostMetaData>
 	protected String queryDelete(PostMetaData metadata) 
 	{
 		return String.format("DELETE FROM posts_metadata WHERE id='%d';", metadata.getId());	
+	}
+
+	@Override
+	protected String queryClean() 
+	{
+		return String.format("DELETE FROM posts_metadata;");	
 	}
 }

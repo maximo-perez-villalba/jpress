@@ -1,6 +1,5 @@
 package net.mpv.jpress.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,7 @@ public class PermissionRepository extends  DBRepository<Permission>
 	}
 
 	@Override
-	public List<Permission> getAll(Pageable pageable) 
+	public List<Permission> getAll() 
 	{
 		return this.jdbcTemplate.query(
 				"SELECT * FROM permissions;", 
@@ -54,6 +53,12 @@ public class PermissionRepository extends  DBRepository<Permission>
 	protected String queryDelete(Permission permission) 
 	{
 		return String.format("DELETE FROM permissions WHERE id='%d';", permission.getId());
+	}
+
+	@Override
+	protected String queryClean() 
+	{
+		return String.format("DELETE FROM permissions;");
 	}
 
 }

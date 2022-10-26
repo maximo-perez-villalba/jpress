@@ -1,6 +1,5 @@
 package net.mpv.jpress.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,7 @@ public class GroupRepository extends DBRepository<Group>
 	}
 
 	@Override
-	public List<Group> getAll(Pageable pageable) 
+	public List<Group> getAll() 
 	{
 		return this.jdbcTemplate.query(
 				"SELECT * FROM groups;", 
@@ -54,6 +53,12 @@ public class GroupRepository extends DBRepository<Group>
 	protected String queryDelete(Group group) 
 	{
 		return String.format("DELETE FROM groups WHERE id='%d';", group.getId());
+	}
+
+	@Override
+	protected String queryClean() 
+	{
+		return String.format("DELETE FROM groups;");
 	}
 
 }

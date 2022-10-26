@@ -1,6 +1,5 @@
 package net.mpv.jpress.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,7 @@ public class UserRepository extends DBRepository<User>
 	}
 
 	@Override
-	public List<User> getAll(Pageable pageable) 
+	public List<User> getAll() 
 	{
 		return this.jdbcTemplate.query(
 				"SELECT * FROM users;", 
@@ -64,6 +63,12 @@ public class UserRepository extends DBRepository<User>
 	protected String queryDelete(User user) 
 	{
 		return String.format("DELETE FROM users WHERE id='%d';", user.getId());
+	}
+
+	@Override
+	protected String queryClean() 
+	{
+		return String.format("DELETE FROM users;");
 	}
 	
 }
