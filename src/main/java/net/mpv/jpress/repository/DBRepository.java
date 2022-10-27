@@ -49,7 +49,8 @@ public abstract class DBRepository<T>
 		this.lastException = lastException;
 		if(this.getVerbose())
 		{
-			System.out.println(lastException.getClass()+":"+lastException.getMessage());
+			System.out.println(lastException.getClass()+":");
+			System.out.println("message: \""+lastException.getMessage()+"\"");
 			for(int i=0; i < 4; i++) 
 			{
 				StackTraceElement trace = lastException.getStackTrace()[i];

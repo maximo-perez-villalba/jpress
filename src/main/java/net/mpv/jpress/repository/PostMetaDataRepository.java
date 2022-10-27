@@ -14,11 +14,38 @@ public class PostMetaDataRepository extends DBRepository<PostMetaData>
 	@Override
 	public PostMetaData getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM posts_metadata WHERE id = ?;",
-				new PostMetaDataMapper(),
-				new Object[]{id}
-			);
+		PostMetaData metadata = null;
+		try 
+		{
+			metadata = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM posts_metadata WHERE id = ?;",
+					new PostMetaDataMapper(),
+					new Object[]{id}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return metadata;
+	}
+	
+	public PostMetaData getByKey(String key, long userId) 
+	{
+		PostMetaData metadata = null;
+		try 
+		{
+			metadata = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM posts_metadata WHERE `key` = ? AND post_id = ?;",
+					new PostMetaDataMapper(),
+					new Object[]{key, userId}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return metadata;
 	}
 
 	@Override
@@ -34,7 +61,7 @@ public class PostMetaDataRepository extends DBRepository<PostMetaData>
 	protected String queryInsert(PostMetaData metadata) 
 	{
 		return String.format(
-				"INSERT INTO posts_metadata (key,value,post_id) VALUES ('%s','%s','%d');",
+				"INSERT INTO posts_metadata (`key`,`value`,post_id) VALUES ('%s','%s','%d');",
 				metadata.getKey(),
 				metadata.getValue(),
 				metadata.getPost_id()
@@ -45,7 +72,7 @@ public class PostMetaDataRepository extends DBRepository<PostMetaData>
 	protected String queryUpdate(PostMetaData metadata) 
 	{
 		return String.format(
-				"UPDATE posts_metadata SET value='%s' WHERE id='%d';",
+				"UPDATE posts_metadata SET value='%s' WHERE id = %d;",
 				metadata.getValue(),
 				metadata.getId()
 			);
@@ -54,7 +81,7 @@ public class PostMetaDataRepository extends DBRepository<PostMetaData>
 	@Override
 	protected String queryDelete(PostMetaData metadata) 
 	{
-		return String.format("DELETE FROM posts_metadata WHERE id='%d';", metadata.getId());	
+		return String.format("DELETE FROM posts_metadata WHERE id = %d;", metadata.getId());	
 	}
 
 	@Override
