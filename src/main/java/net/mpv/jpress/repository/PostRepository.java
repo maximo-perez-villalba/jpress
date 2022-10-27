@@ -14,13 +14,40 @@ public class PostRepository extends DBRepository<Post>
 	@Override
 	public Post getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM posts WHERE id = ?;",
-				new PostMapper(),
-				new Object[]{id}
-			);
+		Post post = null;
+		try 
+		{
+			post = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM posts WHERE id = ?;",
+					new PostMapper(),
+					new Object[]{id}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return post;
 	}
 
+	public Post getBySlug(String slug) 
+	{
+		Post post = null;
+		try 
+		{
+			post = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM posts WHERE slug = ?;",
+					new PostMapper(),
+					new Object[]{slug}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return post;
+	}
+	
 	@Override
 	public List<Post> getAll() 
 	{
@@ -33,9 +60,10 @@ public class PostRepository extends DBRepository<Post>
 	@Override
 	protected String queryInsert(Post post) 
 	{
+		String query = "INSERT INTO posts (slug,title,excerpt,featured_image_url,"
+				+ "type,category_id,user_id) VALUES ('%s','%s','%s','%s','%s',%d,%d);"; 
 		return String.format(
-				"INSERT INTO posts (slug,title,excerpt,featured_image_url,type,category_id,user_id) "
-				+ "VALUES ('%s','%s','%s','%s','%d','%d');",
+				query,
 				post.getSlug(),
 				post.getTitle(),
 				post.getExcerpt(),
