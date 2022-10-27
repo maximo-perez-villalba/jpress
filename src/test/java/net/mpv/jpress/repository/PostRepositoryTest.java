@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import net.mpv.jpress.components.TestDatabaseConfiguration;
 import net.mpv.jpress.model.Category;
-import net.mpv.jpress.model.Group;
 import net.mpv.jpress.model.Post;
 import net.mpv.jpress.model.User;
 
@@ -33,16 +32,12 @@ class PostRepositoryTest
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private GroupRepository groupRepository;
-	
 	@AfterEach
     void tearDown() 
 	{
 		this.repository.clean();
 		this.categoryRepository.clean();
 		this.userRepository.clean();
-		this.groupRepository.clean();
     }
 
 	@Test
@@ -258,22 +253,12 @@ class PostRepositoryTest
 
 	private User mockupUser() 
 	{
-		Group group = this.mockupGroup();
 		User user = new User();
 		user.setEmail("nombre@email.com");
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoES1Contraseña");
-		user.setGroup_id(group.getId());
 		this.userRepository.save(user);
 		return this.userRepository.getByEmail("nombre@email.com");
-	}
-	
-	private Group mockupGroup() 
-	{
-		Group group = new Group();
-		group.setName("Grupo de Usuarios");
-		this.groupRepository.save(group);
-		return this.groupRepository.getByName("Grupo de Usuarios");
 	}
 }

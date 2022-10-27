@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.mpv.jpress.components.TestDatabaseConfiguration;
-import net.mpv.jpress.model.Group;
 import net.mpv.jpress.model.User;
 
 @SpringBootTest
@@ -23,28 +22,21 @@ class UserRepositoryTest
 
 	@Autowired
 	private UserRepository repository;
-
-	@Autowired
-	private GroupRepository groupRepository;	
 	
 	@AfterEach
     void tearDown() 
 	{
 		this.repository.clean();
-		this.groupRepository.clean();
     }
 
 	@Test
 	void testGetById() 
 	{
-		Group group = this.mockupGroup();
-		
 		User user = new User();
 		user.setEmail("nombre@email.com");
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoEs1contraseñA");
-		user.setGroup_id(group.getId());
 		
 		boolean response = this.repository.save(user);
 		if(response)
@@ -64,14 +56,11 @@ class UserRepositoryTest
 	@Test
 	void testGetByEmail() 
 	{
-		Group group = this.mockupGroup();
-		
 		User user = new User();
 		user.setEmail("nombre@email.com");
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoEs1contraseñA");
-		user.setGroup_id(group.getId());
 		
 		boolean response = this.repository.save(user);
 		if(response)
@@ -88,14 +77,11 @@ class UserRepositoryTest
 	@Test
 	void testGetAll() 
 	{
-		Group group = this.mockupGroup();
-		
 		User user = new User();
 		user.setEmail("nombre@email.com");
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoEs1contraseñA");
-		user.setGroup_id(group.getId());
 		
 		boolean response = this.repository.save(user);
 		if(response)
@@ -105,7 +91,6 @@ class UserRepositoryTest
 			user.setFirstname("Nombre1");
 			user.setLastname("Apellido1");
 			user.setPassword("estoEs1contraseñA1");
-			user.setGroup_id(group.getId());
 			response = this.repository.save(user);
 		}
 		if(response)
@@ -115,7 +100,6 @@ class UserRepositoryTest
 			user.setFirstname("Nombre2");
 			user.setLastname("Apellido2");
 			user.setPassword("estoEs1contraseñA2");
-			user.setGroup_id(group.getId());
 			response = this.repository.save(user);
 		}
 		
@@ -133,14 +117,11 @@ class UserRepositoryTest
 	@Test
 	void testSave() 
 	{
-		Group group = this.mockupGroup();
-		
 		User user = new User();
 		user.setEmail("nombre@email.com");
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoEs1contraseñA");
-		user.setGroup_id(group.getId());
 		
 		boolean response = this.repository.save(user);
 		Assert.assertTrue(response);
@@ -149,14 +130,11 @@ class UserRepositoryTest
 	@Test
 	void testUpdate() 
 	{
-		Group group = this.mockupGroup();
-		
 		User user = new User();
 		user.setEmail("nombre@email.com");
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoEs1contraseñA");
-		user.setGroup_id(group.getId());
 		
 		boolean response = this.repository.save(user);
 		if(response)
@@ -184,14 +162,11 @@ class UserRepositoryTest
 	@Test
 	void testDelete() 
 	{
-		Group group = this.mockupGroup();
-		
 		User user = new User();
 		user.setEmail("nombre@email.com");
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoEs1contraseñA");
-		user.setGroup_id(group.getId());
 		
 		boolean response = this.repository.save(user);
 		
@@ -199,15 +174,6 @@ class UserRepositoryTest
 		response = this.repository.delete(user);
 		
 		Assert.assertTrue(response);
-	}
-
-	private Group mockupGroup() 
-	{
-		Group group = new Group();
-		group.setName("Categoría");
-		this.groupRepository.save(group);
-
-		return this.groupRepository.getByName("Categoría");
 	}
 	
 }

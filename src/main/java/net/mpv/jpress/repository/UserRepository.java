@@ -63,13 +63,12 @@ public class UserRepository extends DBRepository<User>
 	protected String queryInsert(User user) 
 	{
 		return String.format(
-				"INSERT INTO `users` (firstname,lastname,email,password,group_id)"
-				+ " VALUES ('%s','%s','%s','%s','%d');",
+				"INSERT INTO `users` (firstname,lastname,email,`password`)"
+				+ " VALUES ('%s','%s','%s','%s');",
 				user.getFirstname(),
 				user.getLastname(),
 				user.getEmail(),
-				user.getPassword(),
-				user.getGroup_id()
+				user.getPassword()
 			);
 	}
 
@@ -78,12 +77,11 @@ public class UserRepository extends DBRepository<User>
 	{
 		return String.format(
 				"UPDATE `users` SET firstname='%s',lastname='%s',email='%s',"
-				+ "`password`='%s',group_id='%d' WHERE id='%d';",
+				+ "`password`='%s' WHERE id='%d';",
 				user.getFirstname(),
 				user.getLastname(),
 				user.getEmail(),
 				user.getPassword(),
-				user.getGroup_id(),
 				user.getId()
 			);
 	}

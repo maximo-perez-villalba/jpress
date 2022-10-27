@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.mpv.jpress.repository.CategoryRepository;
-import net.mpv.jpress.repository.GroupRepository;
-import net.mpv.jpress.repository.PermissionRepository;
 import net.mpv.jpress.repository.PostBodyRepository;
 import net.mpv.jpress.repository.PostMetaDataRepository;
 import net.mpv.jpress.repository.PostRepository;
@@ -36,12 +34,6 @@ public class TestDatabaseConfiguration
 	}
 	
 	@Bean
-	public GroupRepository getGroupRepository() 
-	{
-		return new GroupRepository();
-	} 
-	
-	@Bean
 	public UserRepository getUserRepository() 
 	{
 		return new UserRepository();
@@ -51,12 +43,6 @@ public class TestDatabaseConfiguration
 	public UserMetaDataRepository getUserMetaDataRepository() 
 	{
 		return new UserMetaDataRepository();
-	} 
-	
-	@Bean
-	public PermissionRepository getPermissionRepository() 
-	{
-		return new PermissionRepository();
 	} 
 	
 	@Bean

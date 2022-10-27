@@ -235,7 +235,6 @@ class PostBodyRepositoryTest
 			user.setFirstname("Nombre");
 			user.setLastname("Apellido");
 			user.setPassword("estoES1Contraseña");
-			user.setGroup_id(0);
 			this.userRepository.save(user);
 			user = this.userRepository.getByEmail("nombre@email.com");
 		}

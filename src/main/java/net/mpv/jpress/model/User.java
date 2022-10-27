@@ -9,8 +9,6 @@ public class User extends DBModel
 	private String email;
 	
 	private String password;
-	
-	private long group_id;
 
 	public String getFirstname() 
 	{
@@ -52,13 +50,4 @@ public class User extends DBModel
 		this.password = password;
 	}
 
-	public long getGroup_id() 
-	{
-		return group_id;
-	}
-
-	public void setGroup_id(long group_id) 
-	{
-		this.group_id = group_id;
-	}
 }

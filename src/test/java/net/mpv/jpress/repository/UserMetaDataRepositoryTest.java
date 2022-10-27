@@ -190,7 +190,6 @@ class UserMetaDataRepositoryTest
 		user.setFirstname("Nombre");
 		user.setLastname("Apellido");
 		user.setPassword("estoEs1contraseñA");
-		user.setGroup_id(0);
 		this.userRepository.save(user);
 		
 		return this.userRepository.getByEmail("nombre@email.com");
