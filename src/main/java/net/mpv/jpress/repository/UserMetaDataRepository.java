@@ -8,16 +8,25 @@ import net.mpv.jpress.mapper.UserMedataMapper;
 import net.mpv.jpress.model.UserMetaData;
 
 @Repository
-public class UserMedataRepository extends DBRepository<UserMetaData> 
+public class UserMetaDataRepository extends DBRepository<UserMetaData> 
 {
 
 	@Override
 	public UserMetaData getById(long id) 
 	{
 		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM users_metadata WHERE id = ?;",
+				"SELECT * FROM `users_metadata` WHERE id = ?;",
 				new UserMedataMapper(),
 				new Object[]{id}
+			);
+	}
+ 
+	public UserMetaData getByKey(long userId, String key) 
+	{
+		return this.jdbcTemplate.queryForObject(
+				"SELECT * FROM `users_metadata` WHERE users_id = ? AND `key` = ?;",
+				new UserMedataMapper(),
+				new Object[]{userId, key}
 			);
 	}
 
@@ -25,7 +34,7 @@ public class UserMedataRepository extends DBRepository<UserMetaData>
 	public List<UserMetaData> getAll() 
 	{
 		return this.jdbcTemplate.query(
-				"SELECT * FROM users_metadata;", 
+				"SELECT * FROM `users_metadata`;", 
 				new UserMedataMapper()
 			);
 	}
@@ -34,7 +43,7 @@ public class UserMedataRepository extends DBRepository<UserMetaData>
 	protected String queryInsert(UserMetaData metadata) 
 	{
 		return String.format(
-				"INSERT INTO users_metadata (key,value,users_id) VALUES ('%s','%s','%d');",
+				"INSERT INTO `users_metadata` (`key`,`value`,users_id) VALUES ('%s','%s',%d);",
 				metadata.getKey(),
 				metadata.getValue(),
 				metadata.getUsers_id()
@@ -45,7 +54,7 @@ public class UserMedataRepository extends DBRepository<UserMetaData>
 	protected String queryUpdate(UserMetaData metadata) 
 	{
 		return String.format(
-				"UPDATE users_metadata SET value='%s' WHERE id='%d';",
+				"UPDATE `users_metadata` SET value='%s' WHERE id=%d;",
 				metadata.getValue(),
 				metadata.getId()
 			);
@@ -54,13 +63,13 @@ public class UserMedataRepository extends DBRepository<UserMetaData>
 	@Override
 	protected String queryDelete(UserMetaData metadata) 
 	{
-		return String.format("DELETE FROM users_metadata WHERE id='%d';",metadata.getId());
+		return String.format("DELETE FROM `users_metadata` WHERE id=%d;",metadata.getId());
 	}
 
 	@Override
 	protected String queryClean() 
 	{
-		return String.format("DELETE FROM users_metadata;");
+		return String.format("DELETE FROM `users_metadata`;");
 	}
 	
 }
