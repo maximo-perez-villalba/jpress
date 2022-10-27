@@ -14,11 +14,40 @@ public class PermissionRepository extends  DBRepository<Permission>
 	@Override
 	public Permission getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM permissions WHERE id = ?;",
-				new PermissionMapper(),
-				new Object[]{id}
-			);
+		Permission permission = null;
+		try 
+		{
+			permission = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM permissions WHERE id = ?;",
+					new PermissionMapper(),
+					new Object[]{id}
+				); 
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		
+		return permission;
+	}
+
+	public Permission getByName(String name) 
+	{
+		Permission permission = null;
+		try 
+		{
+			permission = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM permissions WHERE name = ?;",
+					new PermissionMapper(),
+					new Object[]{name}
+				); 
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		
+		return permission;
 	}
 
 	@Override

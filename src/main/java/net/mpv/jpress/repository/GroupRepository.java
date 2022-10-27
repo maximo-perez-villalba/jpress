@@ -14,20 +14,42 @@ public class GroupRepository extends DBRepository<Group>
 	@Override
 	public Group getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM `groups` WHERE id = ?;",
-				new GroupMapper(),
-				new Object[]{id}
-			);
+		Group group = null;
+		
+		try 
+		{
+			group = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM `groups` WHERE id = ?;",
+					new GroupMapper(),
+					new Object[]{id}
+				); 
+		}
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		
+		return group;
 	}
 
 	public Group getByName(String name) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM `groups` WHERE name = ?;",
-				new GroupMapper(),
-				new Object[]{name}
-			);
+		Group group = null;
+		
+		try 
+		{
+			group = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM `groups` WHERE name = ?;",
+					new GroupMapper(),
+					new Object[]{name}
+				);
+		}
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		
+		return group;
 	}
 
 	@Override

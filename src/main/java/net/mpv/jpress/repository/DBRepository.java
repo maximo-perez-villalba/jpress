@@ -1,6 +1,7 @@
 package net.mpv.jpress.repository;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -18,13 +19,25 @@ public abstract class DBRepository<T>
 	
 	protected JdbcTemplate jdbcTemplate;
 	
+	private Exception lastException;
+	
+	private boolean verbose = false;
+	
 	@PostConstruct
 	public void postConstructor() 
 	{
 		this.jdbcTemplate = new JdbcTemplate(this.dataSource);
 	}
-	
-	private Exception lastException;
+
+	public void setVerbose(boolean value) 
+	{
+		this.verbose = value;
+	}
+
+	public boolean getVerbose() 
+	{
+		return this.verbose;
+	}
 	
 	public Exception getLastException() 
 	{
@@ -34,11 +47,18 @@ public abstract class DBRepository<T>
 	public void setLastException(Exception lastException) 
 	{
 		this.lastException = lastException;
-	}
-	
-	public T findById(long id)
-	{
-		return null;
+		if(this.getVerbose())
+		{
+			System.out.println(lastException.getClass()+":"+lastException.getMessage());
+			for(int i=0; i < 4; i++) 
+			{
+				StackTraceElement trace = lastException.getStackTrace()[i];
+				
+				String line = "["+i+"] "+trace.getClassName()+"::"+trace.getMethodName()+"("+trace.getLineNumber()+")";
+				System.out.println(line);
+			}
+			System.out.println();
+		}
 	}
 	
 	private boolean execute(String sql)
@@ -52,7 +72,6 @@ public abstract class DBRepository<T>
 		catch(Exception exception)
 		{
 			this.setLastException(exception);
-			System.out.println(exception.getMessage());
 		}
 		return response;
 	}
@@ -100,9 +119,13 @@ public abstract class DBRepository<T>
 	{
 		boolean response = false;
 		DBModel model = (DBModel)t;
-		if(model.getId() != 0)
+		if(Objects.nonNull(model) && model.getId() != 0)
 		{
-			response = this.execute(this.queryDelete(t));
+			T modelInDB = this.getById(model.getId());
+			if(Objects.nonNull(modelInDB)) 
+			{
+				response = this.execute(this.queryDelete(t));	
+			}
 		}
 		return response;
 	}

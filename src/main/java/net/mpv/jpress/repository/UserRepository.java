@@ -14,20 +14,40 @@ public class UserRepository extends DBRepository<User>
 	@Override
 	public User getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM `users` WHERE id = ?;",
-				new UserMapper(),
-				new Object[]{id}
-			);
+		User user = null;
+		try 
+		{
+			user = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM `users` WHERE id = ?;",
+					new UserMapper(),
+					new Object[]{id}
+				); 
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		
+		return user;
 	}
 
 	public User getByEmail(String email) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM `users` WHERE email = ?;",
-				new UserMapper(),
-				new Object[]{email}
-			);
+		User user = null;
+		try 
+		{
+			user = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM `users` WHERE email = ?;",
+					new UserMapper(),
+					new Object[]{email}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		
+		return user;
 	}
 
 	@Override

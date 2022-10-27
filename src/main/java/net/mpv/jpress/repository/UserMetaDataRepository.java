@@ -14,20 +14,38 @@ public class UserMetaDataRepository extends DBRepository<UserMetaData>
 	@Override
 	public UserMetaData getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM `users_metadata` WHERE id = ?;",
-				new UserMedataMapper(),
-				new Object[]{id}
-			);
+		UserMetaData metadata = null;
+		try 
+		{
+			metadata = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM `users_metadata` WHERE id = ?;",
+					new UserMedataMapper(),
+					new Object[]{id}
+				); 
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return metadata;
 	}
  
 	public UserMetaData getByKey(long userId, String key) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM `users_metadata` WHERE users_id = ? AND `key` = ?;",
-				new UserMedataMapper(),
-				new Object[]{userId, key}
-			);
+		UserMetaData metadata = null;
+		try 
+		{
+			metadata = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM `users_metadata` WHERE users_id = ? AND `key` = ?;",
+					new UserMedataMapper(),
+					new Object[]{userId, key}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return metadata;
 	}
 
 	@Override

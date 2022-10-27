@@ -8,6 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.mpv.jpress.repository.CategoryRepository;
 import net.mpv.jpress.repository.GroupRepository;
+import net.mpv.jpress.repository.PermissionRepository;
 import net.mpv.jpress.repository.UserMetaDataRepository;
 import net.mpv.jpress.repository.UserRepository;
 
@@ -47,5 +48,11 @@ public class TestDatabaseConfiguration
 	public UserMetaDataRepository getUserMetaDataRepository() 
 	{
 		return new UserMetaDataRepository();
+	} 
+	
+	@Bean
+	public PermissionRepository getPermissionRepository() 
+	{
+		return new PermissionRepository();
 	} 
 }

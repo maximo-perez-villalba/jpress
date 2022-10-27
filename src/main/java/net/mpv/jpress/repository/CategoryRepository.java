@@ -12,20 +12,41 @@ public class CategoryRepository extends DBRepository<Category>
 	@Override
 	public Category getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM categories WHERE id = ?;",
-				new CategoryMapper(),
-				new Object[]{id}
-			);
+		Category category = null;
+		try 
+		{
+			category = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM categories WHERE id = ?;",
+					new CategoryMapper(),
+					new Object[]{id}
+				); 
+		}
+		catch(Exception exc) 
+		{
+			this.setLastException(exc);
+		}
+		
+		return category;
 	}
 
 	public Category getByName(String name) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM categories WHERE name = ?;",
-				new CategoryMapper(),
-				new Object[]{name}
-			);
+		Category category = null;
+
+		try 
+		{
+			category = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM categories WHERE name = ?;",
+					new CategoryMapper(),
+					new Object[]{name}
+				); 
+		}
+		catch(Exception exc) 
+		{
+			this.setLastException(exc);
+		}
+		
+		return category; 
 	}
 
 	@Override
