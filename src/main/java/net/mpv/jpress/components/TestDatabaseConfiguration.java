@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import net.mpv.jpress.repository.CategoryRepository;
 import net.mpv.jpress.repository.GroupRepository;
 import net.mpv.jpress.repository.PermissionRepository;
+import net.mpv.jpress.repository.PostBodyRepository;
 import net.mpv.jpress.repository.PostMetaDataRepository;
 import net.mpv.jpress.repository.PostRepository;
 import net.mpv.jpress.repository.UserMetaDataRepository;
@@ -68,5 +69,11 @@ public class TestDatabaseConfiguration
 	public PostMetaDataRepository getPostMetaDataRepository() 
 	{
 		return new PostMetaDataRepository();
+	} 
+	
+	@Bean
+	public PostBodyRepository getPostBodyRepository() 
+	{
+		return new PostBodyRepository();
 	} 
 }

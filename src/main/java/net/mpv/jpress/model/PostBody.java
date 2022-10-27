@@ -1,8 +1,12 @@
 package net.mpv.jpress.model;
 
+import java.util.Date;
+
 public class PostBody extends DBModel 
 {
 	private String body;
+	
+	private Date created;
 	
 	private long post_id;
 
@@ -24,6 +28,16 @@ public class PostBody extends DBModel
 	public void setPost_id(long post_id) 
 	{
 		this.post_id = post_id;
+	}
+
+	public Date getCreated() 
+	{
+		return created;
+	}
+
+	public void setCreated(Date created) 
+	{
+		this.created = created;
 	}
 	
 }

@@ -16,6 +16,7 @@ public class PostBodyMapper implements RowMapper<PostBody>
 		PostBody body = new PostBody();
 		body.setId(rs.getLong("id"));
 		body.setBody(rs.getString("body"));
+		body.setCreated(rs.getDate("created"));
 		body.setPost_id(rs.getLong("post_id"));
 		return body;
 	}

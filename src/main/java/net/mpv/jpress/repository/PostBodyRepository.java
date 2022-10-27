@@ -14,11 +14,38 @@ public class PostBodyRepository extends DBRepository<PostBody>
 	@Override
 	public PostBody getById(long id) 
 	{
-		return this.jdbcTemplate.queryForObject(
-				"SELECT * FROM post_bodies WHERE id = ?;",
-				new PostBodyMapper(),
-				new Object[]{id}
-			);
+		PostBody body = null;
+		try 
+		{
+			body = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM post_bodies WHERE id = ?;",
+					new PostBodyMapper(),
+					new Object[]{id}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return body;
+	}
+	
+	public PostBody getByPost(long postId) 
+	{
+		PostBody body = null;
+		try 
+		{
+			body = this.jdbcTemplate.queryForObject(
+					"SELECT * FROM post_bodies WHERE post_id = ?;",
+					new PostBodyMapper(),
+					new Object[]{postId}
+				);
+		} 
+		catch (Exception e) 
+		{
+			this.setLastException(e);
+		}
+		return body;
 	}
 
 	@Override
@@ -34,7 +61,7 @@ public class PostBodyRepository extends DBRepository<PostBody>
 	protected String queryInsert(PostBody body) 
 	{
 		return String.format(
-				"INSERT INTO post_bodies (body,post_id) VALUES ('%s','%d');",
+				"INSERT INTO post_bodies (body,post_id) VALUES ('%s',%d);",
 				body.getBody(),
 				body.getPost_id()
 			);
@@ -44,7 +71,7 @@ public class PostBodyRepository extends DBRepository<PostBody>
 	protected String queryUpdate(PostBody body) 
 	{
 		return String.format(
-				"UPDATE post_bodies SET body='%s' WHERE id='%d';",
+				"UPDATE post_bodies SET body='%s' WHERE id=%d;",
 				body.getBody(),
 				body.getId()
 			);
@@ -53,7 +80,7 @@ public class PostBodyRepository extends DBRepository<PostBody>
 	@Override
 	protected String queryDelete(PostBody body) 
 	{
-		return String.format("DELETE FROM post_bodies WHERE id='%d';", body.getId());
+		return String.format("DELETE FROM post_bodies WHERE id=%d;", body.getId());
 	}
 
 	@Override
