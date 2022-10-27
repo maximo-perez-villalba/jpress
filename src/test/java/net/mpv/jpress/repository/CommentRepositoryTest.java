@@ -15,17 +15,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import net.mpv.jpress.components.TestDatabaseConfiguration;
 import net.mpv.jpress.model.Category;
+import net.mpv.jpress.model.Comment;
 import net.mpv.jpress.model.Post;
-import net.mpv.jpress.model.PostBody;
 import net.mpv.jpress.model.User;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {TestDatabaseConfiguration.class})
-class PostBodyRepositoryTest 
+class CommentRepositoryTest 
 {
 	@Autowired
-	private PostBodyRepository repository;
+	private CommentRepository repository;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -36,7 +36,7 @@ class PostBodyRepositoryTest
 	@Autowired
 	private PostRepository postRepository;
 	
-	private String body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+	private String body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
 	
 	@BeforeEach
 	void init() 
@@ -60,131 +60,177 @@ class PostBodyRepositoryTest
 	@Test
 	void testGetById() 
 	{
+		User user = this.mockupUser();
 		Post post = this.mockupPost();
 		
-		PostBody postBody = new PostBody();
-		postBody.setBody(this.body);
-		postBody.setPost_id(post.getId());
-		
-		boolean response = this.repository.save(postBody);
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
+
 		if(response)
 		{
-			postBody = this.repository.getByPost(post.getId());
-			long id = postBody.getId();
-			postBody = this.repository.getById(id);
-			Assert.assertNotNull(postBody);
+			List<Comment> list = this.repository.getByPostId(post.getId());
+			if(list.size() == 1) 
+			{
+				comment = list.get(0);
+				comment = this.repository.getById(comment.getId());
+				response = Objects.nonNull(comment);
+			}
+			else 
+			{
+				response = false;
+			}
 		}
-		else 
+		
+		Assert.assertTrue(response);	
+	}
+
+	@Test
+	void testGetByPostId() 
+	{
+		User user = this.mockupUser();
+		Post post = this.mockupPost();
+		
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
+
+		if(response)
 		{
-			Assert.assertTrue(false);
+			List<Comment> list = this.repository.getByPostId(post.getId());
+			Assert.assertEquals(1, list.size());
+		}
+		else
+		{
+			Assert.assertTrue(true);	
 		}
 	}
 
 	@Test
-	void testGetByIdWithInvalidValue() 
+	void testGetByUserId() 
 	{
-		PostBody postBody = this.repository.getById(-1);
-		Assert.assertNull(postBody);
-	}
-	
-	@Test
-	void testGetByPost() 
-	{
+		User user = this.mockupUser();
 		Post post = this.mockupPost();
 		
-		PostBody postBody = new PostBody();
-		postBody.setBody(this.body);
-		postBody.setPost_id(post.getId());
-		
-		boolean response = this.repository.save(postBody);
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
+
 		if(response)
 		{
-			postBody = this.repository.getByPost(post.getId());
-			Assert.assertNotNull(postBody);
+			List<Comment> list = this.repository.getByUserId(user.getId());
+			Assert.assertEquals(1, list.size());
 		}
-		else 
+		else
 		{
-			Assert.assertTrue(false);
+			Assert.assertTrue(true);	
 		}
 	}
-	
-	@Test
-	void testGetByPostWithInvalidValue() 
-	{
-		Post post = this.mockupPost();
-		PostBody postBody = this.repository.getByPost(post.getId());
-		Assert.assertNull(postBody);
-	}
-	
+
 	@Test
 	void testGetAll() 
 	{
+		User user = this.mockupUser();
 		Post post = this.mockupPost();
 		
-		PostBody postBody = new PostBody();
-		postBody.setBody(this.body);
-		postBody.setPost_id(post.getId());
-		
-		boolean response = this.repository.save(postBody);
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
+
 		if(response)
 		{
-			postBody = new PostBody();
-			postBody.setBody(this.body+" mas texto...");
-			postBody.setPost_id(post.getId());
-			
-			response = this.repository.save(postBody);
+			comment = new Comment();
+			comment.setBody(this.body+"con más texto");
+			comment.setPost_id(post.getId());
+			comment.setUser_id(user.getId());
+			response = this.repository.save(comment);
 		}
 		if(response)
 		{
-			postBody = new PostBody();
-			postBody.setBody(this.body+" mas texto y más texto...");
-			postBody.setPost_id(post.getId());
-			
-			response = this.repository.save(postBody);
+			comment = new Comment();
+			comment.setBody(this.body+"con mucho más texto");
+			comment.setPost_id(post.getId());
+			comment.setUser_id(user.getId());
+			response = this.repository.save(comment);
 		}
 		
 		if(response)
 		{
-			List<PostBody> list = this.repository.getAll();
+			List<Comment> list = this.repository.getAll();
 			Assert.assertEquals(3, list.size());
 		}
-		else 
+		else
 		{
-			Assert.assertTrue(false);
+			Assert.assertTrue(true);	
 		}
 	}
 
 	@Test
 	void testSave() 
 	{
+		User user = this.mockupUser();
 		Post post = this.mockupPost();
 		
-		PostBody postBody = new PostBody();
-		postBody.setBody(this.body);
-		postBody.setPost_id(post.getId());
-		
-		boolean response = this.repository.save(postBody);
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
 		
 		Assert.assertTrue(response);
 	}
 
 	@Test
-	void testDelete() 
+	void testUpdate() 
 	{
+		User user = this.mockupUser();
 		Post post = this.mockupPost();
 		
-		PostBody postBody = new PostBody();
-		postBody.setBody(this.body);
-		postBody.setPost_id(post.getId());
-		
-		boolean response = this.repository.save(postBody);
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
+
 		if(response)
 		{
-			postBody = this.repository.getByPost(post.getId());
-			response = this.repository.delete(postBody);
+			List<Comment> list = this.repository.getByPostId(post.getId());
+			comment = list.get(0);
+			comment.setBody("Cambie de opinión");
+			response = this.repository.update(comment);
 		}
 		
-		Assert.assertTrue(response);
+		Assert.assertTrue(response);	
+	}
+
+	@Test
+	void testDelete() 
+	{
+		User user = this.mockupUser();
+		Post post = this.mockupPost();
+		
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
+
+		if(response)
+		{
+			List<Comment> list = this.repository.getByPostId(post.getId());
+			comment = list.get(0);
+			response = this.repository.delete(comment);
+		}
+		
+		Assert.assertTrue(response);	
 	}
 
 	private Post mockupPost() 
@@ -240,5 +286,6 @@ class PostBodyRepositoryTest
 		}
 		return user;
 	}
+
 
 }

@@ -40,11 +40,11 @@ class PostMetaDataRepositoryTest
 	@BeforeEach
 	void init() 
 	{
-		boolean $value = false;
-		this.repository.setVerbose($value);
-		this.categoryRepository.setVerbose($value);
-		this.userRepository.setVerbose($value);
-		this.postRepository.setVerbose($value);
+		boolean value = false;
+		this.repository.setVerbose(value);
+		this.categoryRepository.setVerbose(value);
+		this.userRepository.setVerbose(value);
+		this.postRepository.setVerbose(value);
 	}
 	
 	@AfterEach

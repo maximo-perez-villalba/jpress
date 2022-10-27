@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import net.mpv.jpress.repository.CategoryRepository;
+import net.mpv.jpress.repository.CommentRepository;
 import net.mpv.jpress.repository.PostBodyRepository;
 import net.mpv.jpress.repository.PostMetaDataRepository;
 import net.mpv.jpress.repository.PostRepository;
@@ -61,5 +62,11 @@ public class TestDatabaseConfiguration
 	public PostBodyRepository getPostBodyRepository() 
 	{
 		return new PostBodyRepository();
-	} 
+	}
+	
+	@Bean
+	public CommentRepository getCommentRepository() 
+	{
+		return new CommentRepository();
+	}
 }
