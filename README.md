@@ -1,2 +1,2 @@
 # jpress
-JPress es un CMS escrito en Java con SpringBoot y MySql/MariaDB. 
+JPress es un CMS minimalista escrito con SpringBoot y MySql. En estado de desarrollo.
