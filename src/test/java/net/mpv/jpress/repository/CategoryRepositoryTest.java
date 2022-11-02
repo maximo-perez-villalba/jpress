@@ -12,7 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.mpv.jpress.components.TestDatabaseConfiguration;
-import net.mpv.jpress.model.Category;
+import net.mpv.jpress.data.model.Category;
+import net.mpv.jpress.data.repository.CategoryRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -35,7 +36,6 @@ class CategoryRepositoryTest
 		Category category = new Category();
 		category.setName("TopXYZ");
 		category.setDescription("Superior category");
-		category.setParent_id(0);
 		
 		boolean response = this.repository.save(category);
 		if(response)
@@ -58,7 +58,6 @@ class CategoryRepositoryTest
 		Category category = new Category();
 		category.setName("Top");
 		category.setDescription("Superior category");
-		category.setParent_id(0);
 		
 		boolean response = this.repository.save(category);
 		if(response)
@@ -78,7 +77,6 @@ class CategoryRepositoryTest
 		Category category = new Category();
 		category.setName("Top 1");
 		category.setDescription("Category 1");
-		category.setParent_id(0);
 		
 		boolean response = this.repository.save(category);
 		
@@ -87,7 +85,6 @@ class CategoryRepositoryTest
 			category = new Category();
 			category.setName("Top 2");
 			category.setDescription("Category 2");
-			category.setParent_id(0);
 			
 			response = this.repository.save(category);
 		}
@@ -96,7 +93,6 @@ class CategoryRepositoryTest
 			category = new Category();
 			category.setName("Top 3");
 			category.setDescription("Category 3");
-			category.setParent_id(0);
 			
 			response = this.repository.save(category);
 		}
@@ -117,7 +113,6 @@ class CategoryRepositoryTest
 		Category category = new Category();
 		category.setName("Top");
 		category.setDescription("Superior category");
-		category.setParent_id(0);
 		
 		boolean response = this.repository.save(category);
 		Assert.assertTrue(response);
@@ -129,7 +124,6 @@ class CategoryRepositoryTest
 		Category category = new Category();
 		category.setName("Top");
 		category.setDescription("Superior category");
-		category.setParent_id(0);
 		
 		boolean response = this.repository.save(category);
 		if(response)
@@ -157,7 +151,6 @@ class CategoryRepositoryTest
 		Category category = new Category();
 		category.setName("Top to Delete");
 		category.setDescription("Superior category");
-		category.setParent_id(0);
 		
 		boolean response = this.repository.save(category);
 		if(response)

@@ -12,8 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.mpv.jpress.components.TestDatabaseConfiguration;
-import net.mpv.jpress.model.User;
-import net.mpv.jpress.model.UserMetaData;
+import net.mpv.jpress.data.model.User;
+import net.mpv.jpress.data.model.UserMetaData;
+import net.mpv.jpress.data.repository.UserMetaDataRepository;
+import net.mpv.jpress.data.repository.UserRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

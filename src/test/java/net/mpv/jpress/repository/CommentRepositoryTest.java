@@ -14,10 +14,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.mpv.jpress.components.TestDatabaseConfiguration;
-import net.mpv.jpress.model.Category;
-import net.mpv.jpress.model.Comment;
-import net.mpv.jpress.model.Post;
-import net.mpv.jpress.model.User;
+import net.mpv.jpress.data.model.Category;
+import net.mpv.jpress.data.model.Comment;
+import net.mpv.jpress.data.model.Post;
+import net.mpv.jpress.data.model.User;
+import net.mpv.jpress.data.repository.CategoryRepository;
+import net.mpv.jpress.data.repository.CommentRepository;
+import net.mpv.jpress.data.repository.PostRepository;
+import net.mpv.jpress.data.repository.UserRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -58,6 +62,27 @@ class CommentRepositoryTest
     }
 
 	@Test
+	void testGetByData() 
+	{
+		User user = this.mockupUser();
+		Post post = this.mockupPost();
+		
+		Comment comment = new Comment();
+		comment.setBody(this.body);
+		comment.setPost_id(post.getId());
+		comment.setUser_id(user.getId());
+		boolean response = this.repository.save(comment);
+
+		if(response)
+		{
+			comment = this.repository.getByData(post.getId(),user.getId(),this.body);
+			response = Objects.nonNull(comment);
+		}
+		
+		Assert.assertTrue(response);	
+	}
+
+	@Test
 	void testGetById() 
 	{
 		User user = this.mockupUser();
@@ -71,17 +96,10 @@ class CommentRepositoryTest
 
 		if(response)
 		{
-			List<Comment> list = this.repository.getByPostId(post.getId());
-			if(list.size() == 1) 
-			{
-				comment = list.get(0);
-				comment = this.repository.getById(comment.getId());
-				response = Objects.nonNull(comment);
-			}
-			else 
-			{
-				response = false;
-			}
+			comment = this.repository.getByData(post.getId(),user.getId(),this.body);
+			long id = comment.getId();
+			comment = this.repository.getById(id);
+			response = Objects.nonNull(comment);
 		}
 		
 		Assert.assertTrue(response);	
@@ -202,8 +220,7 @@ class CommentRepositoryTest
 
 		if(response)
 		{
-			List<Comment> list = this.repository.getByPostId(post.getId());
-			comment = list.get(0);
+			comment = this.repository.getByData(post.getId(),user.getId(),this.body);
 			comment.setBody("Cambie de opinión");
 			response = this.repository.update(comment);
 		}
@@ -225,8 +242,7 @@ class CommentRepositoryTest
 
 		if(response)
 		{
-			List<Comment> list = this.repository.getByPostId(post.getId());
-			comment = list.get(0);
+			comment = this.repository.getByData(post.getId(),user.getId(),this.body);
 			response = this.repository.delete(comment);
 		}
 		
@@ -264,7 +280,6 @@ class CommentRepositoryTest
 			category = new Category();
 			category.setName("Categoria ZZZ");
 			category.setDescription("Lorem ipsum...");
-			category.setParent_id(0);
 			this.categoryRepository.save(category);
 			category = this.categoryRepository.getByName("Categoria ZZZ");
 		}
@@ -286,6 +301,5 @@ class CommentRepositoryTest
 		}
 		return user;
 	}
-
 
 }

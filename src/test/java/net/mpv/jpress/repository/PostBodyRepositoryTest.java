@@ -14,10 +14,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import net.mpv.jpress.components.TestDatabaseConfiguration;
-import net.mpv.jpress.model.Category;
-import net.mpv.jpress.model.Post;
-import net.mpv.jpress.model.PostBody;
-import net.mpv.jpress.model.User;
+import net.mpv.jpress.data.model.Category;
+import net.mpv.jpress.data.model.Post;
+import net.mpv.jpress.data.model.PostBody;
+import net.mpv.jpress.data.model.User;
+import net.mpv.jpress.data.repository.CategoryRepository;
+import net.mpv.jpress.data.repository.PostBodyRepository;
+import net.mpv.jpress.data.repository.PostRepository;
+import net.mpv.jpress.data.repository.UserRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -218,7 +222,6 @@ class PostBodyRepositoryTest
 			category = new Category();
 			category.setName("Categoria ZZZ");
 			category.setDescription("Lorem ipsum...");
-			category.setParent_id(0);
 			this.categoryRepository.save(category);
 			category = this.categoryRepository.getByName("Categoria ZZZ");
 		}

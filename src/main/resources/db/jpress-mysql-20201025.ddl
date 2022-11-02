@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.31, for Linux (x86_64)
 --
--- Host: localhost    Database: tests_jpress
+-- Host: localhost    Database: jpress
 -- ------------------------------------------------------
 -- Server version	8.0.29
 
@@ -27,12 +27,9 @@ CREATE TABLE `categories` (
   `name` varchar(45) NOT NULL,
   `description` varchar(80) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `parent_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name_UNIQUE` (`name`),
-  KEY `fk_parent_idx` (`parent_id`),
-  CONSTRAINT `fk_parent` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=302 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +38,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (278,'aut','dicta voluptas quaerat','2022-11-02 15:34:48'),(279,'sed','nobis impedit consectetur','2022-11-02 15:37:38'),(290,'maiores','consequatur ad fugiat','2022-11-02 18:23:16'),(296,'nam','vitae repellat eos','2022-11-02 18:27:42');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,7 +51,7 @@ DROP TABLE IF EXISTS `comments`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comments` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `body` varchar(255) NOT NULL,
+  `body` mediumtext NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `post_id` int unsigned NOT NULL,
   `user_id` int unsigned NOT NULL,
@@ -62,7 +60,7 @@ CREATE TABLE `comments` (
   KEY `fk_user_idx` (`user_id`),
   CONSTRAINT `fk_comments_posts` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
   CONSTRAINT `fk_comments_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,7 +87,7 @@ CREATE TABLE `post_bodies` (
   PRIMARY KEY (`id`),
   KEY `fk_post_idx` (`post_id`),
   CONSTRAINT `fk_post` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +121,7 @@ CREATE TABLE `posts` (
   KEY `fk_user_idx` (`user_id`),
   CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,6 +130,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+INSERT INTO `posts` VALUES (161,'quia-porro-voluptas','atque sit unde','maxime dolore exercitationem','http://placeimg.com/640/480','et',290,286),(166,'veritatis-eos-et','beatae id aut','est numquam quidem','http://placeimg.com/640/480','voluptas',296,293);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +149,7 @@ CREATE TABLE `posts_metadata` (
   PRIMARY KEY (`id`),
   KEY `fk_post_id_idx` (`post_id`),
   CONSTRAINT `fk_post_id` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +205,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=300 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,6 +214,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (286,'Opal','Mitchell','Damaris.Daugherty29@hotmail.com','mt7ur46XuyjSq6e'),(293,'Cole','Douglas','Rickey95@yahoo.com','6x8NtniHT6pXLdh');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +233,7 @@ CREATE TABLE `users_metadata` (
   PRIMARY KEY (`id`),
   KEY `fk_users_metadata_user_idx` (`users_id`),
   CONSTRAINT `fk_users_metadata_user` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-27 17:20:20
+-- Dump completed on 2022-11-02 15:32:42
