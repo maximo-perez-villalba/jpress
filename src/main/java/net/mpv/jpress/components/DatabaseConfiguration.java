@@ -14,6 +14,7 @@ public class DatabaseConfiguration extends JPressDatabaseConfiguration
 	@Autowired
 	private Environment env;
 	
+	@Override
 	@Bean
 	public DataSource getDataSource() 
 	{

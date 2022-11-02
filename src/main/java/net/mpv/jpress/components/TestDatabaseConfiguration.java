@@ -4,13 +4,15 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-//@Configuration
+@Configuration
 public class TestDatabaseConfiguration extends JPressDatabaseConfiguration
 {
 
 	@Override
+	@Profile("test")
 	@Bean
 	public DataSource getDataSource() 
 	{

@@ -2,10 +2,12 @@ package net.mpv.jpress.data.repository;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import net.mpv.jpress.data.mapper.CategoryMapper;
 import net.mpv.jpress.data.model.Category;
 
-//@Repository
+@Repository
 public class CategoryRepository extends DBRepository<Category>
 {
 

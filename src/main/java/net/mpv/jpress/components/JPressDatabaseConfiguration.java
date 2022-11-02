@@ -18,6 +18,7 @@ public abstract class JPressDatabaseConfiguration
 	
 	abstract public DataSource getDataSource();
 	
+	@Primary
 	@Bean
 	public CategoryRepository getCategoryRepository() 
 	{
