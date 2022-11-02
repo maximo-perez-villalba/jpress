@@ -1,0 +1,2407 @@
+{
+	"info": {
+		"_postman_id": "8a37a0a7-a933-46b6-9dcd-1de915de1062",
+		"name": "JPress",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24133022"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"category_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomLoremWord}}\",\n    \"description\": \"{{$randomLoremWords}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.id).to.eql(pm.globals.get(\"category_id\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}/{{category_id}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							],
+							"path": [
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.length).to.be.greaterThan(1);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{category_id}}\",\n    \"name\": \"{{$randomLoremWord}}\",\n    \"description\": \"{{$randomWords}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}/{{category_id}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							],
+							"path": [
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"user_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.id).to.eql(pm.globals.get(\"user_id\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}/{{user_id}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.length).to.be.greaterThan(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{user_id}}\",\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}/{{user_id}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserMetadata",
+			"item": [
+				{
+					"name": "saveUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"user_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"user_metadata_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"{{$randomAdjective}}\",\n    \"value\": \"{{$randomIngverb}}\",\n    \"users_id\": \"{{user_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USERMATADATA_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USERMATADATA_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.id).to.eql(pm.globals.get(\"user_metadata_id\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USERMATADATA_ENDPOINT}}/{{user_metadata_id}}",
+							"host": [
+								"{{DNS_APP}}{{USERMATADATA_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_metadata_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.length).to.be.greaterThan(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USERMATADATA_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USERMATADATA_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{user_metadata_id}}\",\n    \"value\": \"{{$randomIngverb}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USERMATADATA_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USERMATADATA_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USERMATADATA_ENDPOINT}}/{{user_metadata_id}}",
+							"host": [
+								"{{DNS_APP}}{{USERMATADATA_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_metadata_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}/{{user_id}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "saveUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"user_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"category_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomLoremWord}}\",\n    \"description\": \"{{$randomLoremWords}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"post_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"slug\": \"{{$randomLoremSlug}}\",\n    \"title\": \"{{$randomLoremWords}}\",\n    \"excerpt\": \"{{$randomLoremWords}}\",\n    \"featured_image_url\": \"{{$randomImageUrl}}\",\n    \"type\": \"{{$randomLoremWord}}\",\n    \"category_id\": \"{{category_id}}\",\n    \"user_id\": \"{{user_id}}\"        \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.id).to.eql(pm.globals.get(\"post_id\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}/{{post_id}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							],
+							"path": [
+								"{{post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.length).to.be.greaterThan(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{post_id}}\",\n    \"slug\": \"{{$randomLoremSlug}}\",\n    \"title\": \"{{$randomLoremWords}}\",\n    \"excerpt\": \"{{$randomLoremWords}}\",\n    \"featured_image_url\": \"{{$randomImageUrl}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}/{{post_id}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							],
+							"path": [
+								"{{post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}/{{category_id}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							],
+							"path": [
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}/{{user_id}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PostMetadata",
+			"item": [
+				{
+					"name": "saveUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"user_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"category_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomLoremWord}}\",\n    \"description\": \"{{$randomLoremWords}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "savePost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"post_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"slug\": \"{{$randomLoremSlug}}\",\n    \"title\": \"{{$randomLoremWords}}\",\n    \"excerpt\": \"{{$randomLoremWords}}\",\n    \"featured_image_url\": \"{{$randomImageUrl}}\",\n    \"type\": \"{{$randomLoremWord}}\",\n    \"category_id\": \"{{category_id}}\",\n    \"user_id\": \"{{user_id}}\"        \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"postmetadata_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"key\": \"{{$randomAdjective}}\",\n    \"value\": \"{{$randomIngverb}}\",\n    \"post_id\": \"{{post_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.id).to.eql(pm.globals.get(\"postmetadata_id\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}/{{postmetadata_id}}",
+							"host": [
+								"{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}"
+							],
+							"path": [
+								"{{postmetadata_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.length).to.be.greaterThan(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{postmetadata_id}}\",\n    \"value\": \"{{$randomIngverb}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}/{{postmetadata_id}}",
+							"host": [
+								"{{DNS_APP}}{{POSTMETADATA_ENDPOINT}}"
+							],
+							"path": [
+								"{{postmetadata_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}/{{post_id}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							],
+							"path": [
+								"{{post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}/{{category_id}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							],
+							"path": [
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}/{{user_id}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PostBody",
+			"item": [
+				{
+					"name": "saveUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"user_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"category_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomLoremWord}}\",\n    \"description\": \"{{$randomLoremWords}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "savePost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"post_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"slug\": \"{{$randomLoremSlug}}\",\n    \"title\": \"{{$randomLoremWords}}\",\n    \"excerpt\": \"{{$randomLoremWords}}\",\n    \"featured_image_url\": \"{{$randomImageUrl}}\",\n    \"type\": \"{{$randomLoremWord}}\",\n    \"category_id\": \"{{category_id}}\",\n    \"user_id\": \"{{user_id}}\"        \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"postbody_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\": \"{{$randomLoremParagraph}}\",\n    \"post_id\": \"{{post_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTBODY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POSTBODY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.id).to.eql(pm.globals.get(\"postbody_id\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTBODY_ENDPOINT}}/{{postbody_id}}",
+							"host": [
+								"{{DNS_APP}}{{POSTBODY_ENDPOINT}}"
+							],
+							"path": [
+								"{{postbody_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.length).to.be.greaterThan(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTBODY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POSTBODY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{postbody_id}}\",\n    \"body\": \"{{$randomLoremParagraph}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTBODY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POSTBODY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POSTBODY_ENDPOINT}}/{{postbody_id}}",
+							"host": [
+								"{{DNS_APP}}{{POSTBODY_ENDPOINT}}"
+							],
+							"path": [
+								"{{postbody_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}/{{post_id}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							],
+							"path": [
+								"{{post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}/{{category_id}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							],
+							"path": [
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}/{{user_id}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "saveUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"user_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "saveCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"category_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomLoremWord}}\",\n    \"description\": \"{{$randomLoremWords}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "savePost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"post_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"slug\": \"{{$randomLoremSlug}}\",\n    \"title\": \"{{$randomLoremWords}}\",\n    \"excerpt\": \"{{$randomLoremWords}}\",\n    \"featured_image_url\": \"{{$randomImageUrl}}\",\n    \"type\": \"{{$randomLoremWord}}\",\n    \"category_id\": \"{{category_id}}\",\n    \"user_id\": \"{{user_id}}\"        \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.globals.set(\"comment_id\", jpress.id);",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\": \"{{$randomLoremSentence}}\",\n    \"post_id\": \"{{post_id}}\",\n    \"user_id\": \"{{user_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{COMMENT_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{COMMENT_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.id).to.eql(pm.globals.get(\"comment_id\"));",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{COMMENT_ENDPOINT}}/{{comment_id}}",
+							"host": [
+								"{{DNS_APP}}{{COMMENT_ENDPOINT}}"
+							],
+							"path": [
+								"{{comment_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.length).to.be.greaterThan(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{COMMENT_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{COMMENT_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{comment_id}}\",\n    \"body\": \"{{$randomLoremSentence}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DNS_APP}}{{COMMENT_ENDPOINT}}",
+							"host": [
+								"{{DNS_APP}}{{COMMENT_ENDPOINT}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{COMMENT_ENDPOINT}}/{{comment_id}}",
+							"host": [
+								"{{DNS_APP}}{{COMMENT_ENDPOINT}}"
+							],
+							"path": [
+								"{{comment_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{POST_ENDPOINT}}/{{post_id}}",
+							"host": [
+								"{{DNS_APP}}{{POST_ENDPOINT}}"
+							],
+							"path": [
+								"{{post_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{CATEGORY_ENDPOINT}}/{{category_id}}",
+							"host": [
+								"{{DNS_APP}}{{CATEGORY_ENDPOINT}}"
+							],
+							"path": [
+								"{{category_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jpress = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () ",
+									"{",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response ok\", function () ",
+									"{",
+									"    pm.expect(jpress.response).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DNS_APP}}{{USER_ENDPOINT}}/{{user_id}}",
+							"host": [
+								"{{DNS_APP}}{{USER_ENDPOINT}}"
+							],
+							"path": [
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
