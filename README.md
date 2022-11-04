@@ -21,6 +21,7 @@ JPress es un CMS minimalista escrito con SpringBoot y MySql. El proyecto impleme
     * Add Rest Controllers
     * Add Suite tests Postman.
 *  **v1.1.0** La versión agrega:
+    * Settings DataSources with JDBC.
     * Add Models.
     * Add Mappers
     * Add Repositories.    
