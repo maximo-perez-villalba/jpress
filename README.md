@@ -12,4 +12,15 @@ JPress es un CMS minimalista escrito con SpringBoot y MySql. El proyecto impleme
 - org.springframework.boot version: 2.7.5
 - Eclipse version: 2022-09 (4.25.0)
 - JUnit version: 4.13
+- MySql version: 8.0
+- MySql WorkBench version: 8.0
 - Postman version: 10
+
+## Historial
+*  **v1.2.0** 
+    * Add Rest Controllers
+    * Add Suite tests Postman.
+*  **v1.1.0** La versión agrega:
+    * Add Models.
+    * Add Repositories.    
+    * Add Unit tests.
