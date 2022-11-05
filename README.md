@@ -1,5 +1,6 @@
 # jpress
-JPress es un CMS minimalista escrito con SpringBoot y MySql. El proyecto implementa el BackEnd del CMS.
+JPress es un CMS minimalista escrito con SpringBoot y MySql.    
+El proyecto implementa el back-end del CMS JPress y expone su funcionalidad a través de un API Rest.    
 <br>
 ## Contexto de implementación
 - Java -version
